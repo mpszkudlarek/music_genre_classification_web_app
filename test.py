@@ -16,16 +16,16 @@ def convert_to_wav(audio_path):
 
 
 def trim_audio(audio_path):
-    audio_duration_ms = librosa.get_duration(filename=audio_path) * 1000  # Convert to milliseconds
+    audio_duration_ms = librosa.get_duration(filename=audio_path) * 1000
 
     audio = AudioSegment.from_wav(audio_path)
     midpoint = int(audio_duration_ms / 2)
 
-    start_trim = max(0, midpoint - 15000)  # Start 15 seconds before the midpoint
-    end_trim = min(audio_duration_ms, midpoint + 15000)  # End 15 seconds after the midpoint
+    start_trim = max(0, midpoint - 15000)
+    end_trim = min(audio_duration_ms, midpoint + 15000)
 
     trimmed_audio = audio[start_trim:end_trim]
-    trimmed_audio.export(audio_path, format="wav")
+    trimmed_audio.export(audio_path, format='wav')
 
 
 def process_input(audio_file, sample_rate, track_duration, num_mfcc, n_fft, hop_length, num_segments):
@@ -52,9 +52,9 @@ def predict_genre(model, audio_file):
 
 def display_prediction(pred, prob, genre_dict):
     predicted_genre = genre_dict[pred]
-    print("Predicted Genre:", predicted_genre)
+    print('Predicted Genre:', predicted_genre)
     print(tf.greater(prob, .5))
-    np.set_printoptions(formatter={'float': lambda x: "{0:0.3f}".format(x)})
+    np.set_printoptions(formatter={'float': lambda x: '{0:0.3f}'.format(x)})
     print(prob)
 
     sorted_indices = np.argsort(prob)[::-1]
@@ -62,11 +62,11 @@ def display_prediction(pred, prob, genre_dict):
         genre_index = sorted_indices[i]
         genre_name = genre_dict[genre_index]
         genre_probability = prob[genre_index]
-        print(f"{genre_name}: {genre_probability:.2f}")
+        print(f'{genre_name}: {genre_probability:.2f}')
 
 
-model = keras.models.load_model("git_modelv3.h5")
-audio_path = "Garth Brooks- Friends In Low Places.mp3"
+model = keras.models.load_model('git_modelv3.h5')
+audio_path = 'track_to_test/Guns N Roses - Sweet Child O Mine.mp3'
 audio_path = convert_to_wav(audio_path)
 trim_audio(audio_path)
 
@@ -78,16 +78,16 @@ audio_file = process_input(audio_path,
                            512,
                            10)
 
-genre_dict = {0: "blues",
-              1: "classical",
-              2: "country",
-              3: "disco",
-              4: "hiphop",
-              5: "jazz",
-              6: "metal",
-              7: "pop",
-              8: "reggae",
-              9: "rock"}
+genre_dict = {0: 'blues',
+              1: 'classical',
+              2: 'country',
+              3: 'disco',
+              4: 'hiphop',
+              5: 'jazz',
+              6: 'metal',
+              7: 'pop',
+              8: 'reggae',
+              9: 'rock'}
 
 prediction, prob = predict_genre(model, audio_file)
 display_prediction(prediction, prob[0], genre_dict)
