@@ -12,7 +12,14 @@ def convert_to_wav(audio_path):
         extension = os.path.splitext(audio_path)[0]
         subprocess.call(['ffmpeg', '-i', audio_path, extension + '.wav'])
         return extension + '.wav'
+
     return audio_path
+
+
+def check_audio_duration(audio_path, min_duration=30):
+    audio_duration = librosa.get_duration(filename=audio_path)
+    if audio_duration < min_duration:
+        raise ValueError(f'{audio_path} is too short. Audio must be at least {min_duration} seconds.')
 
 
 def trim_audio(audio_path):
@@ -65,8 +72,9 @@ def display_prediction(pred, prob, genre_dict):
         print(f'{genre_name}: {genre_probability:.2f}')
 
 
+audio_path = 'track_to_test/less_than_30s.mp3'
+check_audio_duration(audio_path)
 model = keras.models.load_model('git_modelv3.h5')
-audio_path = 'track_to_test/Guns N Roses - Sweet Child O Mine.mp3'
 audio_path = convert_to_wav(audio_path)
 trim_audio(audio_path)
 
