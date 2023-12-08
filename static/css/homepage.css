@@ -1,0 +1,124 @@
+body {
+    background-image: url('/static/img/wp9684415.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.h_container {
+    width: 80%;
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(5px);
+    border-radius: 25px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+}
+
+h1 {
+    color: #333;
+    font-size: 5em; 
+    font-weight: bold;
+    margin-bottom: 0.5em;
+    text-align: center;
+}
+
+.center {
+    text-align: center;
+}
+
+.h_container p, .h_container .how-to ol li {
+    color: #333;
+    font-size: 22px; 
+    line-height: 1.4;
+}
+
+
+
+/* File upload button */
+::-webkit-file-upload-button {
+    border-radius: 4px;
+    background-color: #333; /* Dark grey */
+    color: #ECEFF4; /* Light grey */
+    padding: 10px 20px;
+    border: none;
+    transition: background-color 0.3s;
+    font-family: 'Roboto', sans-serif;
+}
+
+::-webkit-file-upload-button:hover {
+    background-color: #f2f2f2; /* Lighter grey for hover */
+    color: #333; /* Dark grey */
+}
+
+.button {
+    border-radius: 4px;
+    background-color: #333; /* Dark grey */
+    color: #ECEFF4; /* Light grey */
+    text-align: center;
+    font-size: 18px; /* Match font size from about page */
+    padding: 10px 20px;
+    border: none;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.button:hover {
+    background-color: #333; /* Lighter grey for hover */
+}
+
+.button span {
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+
+.button span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+}
+
+.button:hover span {
+    padding-right: 25px;
+}
+
+.button:hover span:after {
+    opacity: 1;
+    right: 0;
+}
+
+@media screen and (max-width: 600px) {
+    .h_container {
+        width: 90%;
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    .h_container p, .h_container .how-to p, label, .button {
+        font-size: 15px;
+    }
+
+    .button {
+        padding: 10px;
+        font-size: 16px;
+    }
+}

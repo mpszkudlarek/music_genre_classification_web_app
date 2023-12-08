@@ -72,7 +72,7 @@ def display_prediction(pred, prob, genre_dict):
         print(f'{genre_name}: {genre_probability:.2f}')
 
 
-audio_path = 'track_to_test/less_than_30s.mp3'
+audio_path = 'segments/segment_0.wav'
 check_audio_duration(audio_path)
 model = keras.models.load_model('git_modelv3.h5')
 audio_path = convert_to_wav(audio_path)

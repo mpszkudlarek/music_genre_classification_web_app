@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="static/css/prediction.css">
+    <title>Prediction</title>
+</head>
+<body>
+
+    <div class="predictions">
+        <h2>Predicted Genres</h2>
+        {% if predicted_genres %}
+            <div class="cards">
+                {% for genre in predicted_genres %}
+                    <div class="card">
+                        <div class="card-content">
+                            <h3 class="genre-name">{{ genre.genre }}</h3>
+                            <p class="probability">Probability: {{ genre.probability | round(2) }}%</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="no-prediction">No predictions available. Please upload an audio file to get predictions.</p>
+        {% endif %}
+    </div>
+
+
+<!-- You can add more content or scripts here -->
+</body>
+</html>
