@@ -10,6 +10,7 @@ import librosa
 
 model = keras.models.load_model('git_modelv3.h5')
 
+
 def check_extension(audio_path):
     _, ext = os.path.splitext(audio_path)
     ext = ext.lower()
@@ -25,10 +26,8 @@ def check_extension(audio_path):
     return audio_path
 
 
-def split_audio(audio_path, segment_duration=30):
-    temp_id = str(uuid.uuid4())
-    temp_folder = os.path.join('tmp_directory', temp_id)
-    os.makedirs(temp_folder, exist_ok=True)
+def split_audio(audio_path, temp_folder, segment_duration=30):
+    # No need to create a new temp folder here; use the one passed as an argument
 
     wav_path = check_extension(audio_path)
     audio = AudioSegment.from_wav(wav_path)
@@ -44,7 +43,7 @@ def split_audio(audio_path, segment_duration=30):
         part.export(part_file, format='wav')
         audio_parts.append(part_file)
 
-    return audio_parts, temp_folder
+    return audio_parts  # No need to return temp_folder since it's passed in
 
 
 def extract_features(audio_file, sr=22050, duration=30, mfccs=13, fft=2048, hop=512, num_segments=10):
