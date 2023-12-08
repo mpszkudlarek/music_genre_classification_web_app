@@ -1,0 +1,19 @@
+<div class="menu-toggle" id="hamburger">
+    <i class="fas fa-bars"></i>
+</div>
+<div class="overlay"></div>
+<div class="container">
+    <nav>
+        <h1 class="brand"><a href="{{ url_for('homepage') }}">Music<span> Genre</span> Classifier</a></h1>
+        <ul>
+            <li><a href="{{ url_for('homepage') }}">Home</a></li>
+            <li><a href="{{ url_for('project') }}">Project</a></li>
+            <li><a href="{{ url_for('contact') }}">Contact</a></li>
+        </ul>
+    </nav>
+</div>
+
+<br><br>
+{% block content %}
+
+{% endblock %}

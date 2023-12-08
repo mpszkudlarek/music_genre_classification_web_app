@@ -1,40 +1,30 @@
-const input = document.getElementById('audio-upload');
+const input = document.getElementById('file');
+const link = document.getElementById('link');
 let objectURL;
 
 input.addEventListener('change', function () {
-  const file = this.files[0];
-
-  if (this.files.length > 1) {
-    alert("Please upload only one file.");
-    return;
+  if (objectURL) {
+    // Revoke the old object URL to avoid using more memory than needed
+    URL.revokeObjectURL(objectURL);
   }
 
-  if (file && (file.type === 'audio/mp3' || file.type === 'audio/wav' || file.type === 'audio/mpeg')) {
-    if (objectURL) {
-      URL.revokeObjectURL(objectURL);
+  const file = this.files[0];
+
+  // Check if the file is a .wav or .mp3
+  if (file) {
+    const fileName = file.name.toLowerCase();
+    if (fileName.endsWith('.wav') || fileName.endsWith('.mp3')) {
+      objectURL = URL.createObjectURL(file);
+
+      link.href = objectURL;
+      var today = new Date();
+      link.download = file.name;
+      link.style.display = "block"; // Show the download link
+    } else {
+      // Show an alert if the file is not a .wav or .mp3
+      alert("Please select a .wav or .mp3 file.");
+      // Reset the input field
+      input.value = null;
     }
-    
-    objectURL = URL.createObjectURL(file);
-
-    let audio = new Audio();
-    audio.addEventListener('loadedmetadata', function() {
-
-      if (audio.duration < 30) {
-        alert("The file is too short. Please upload a file that is at least 30 seconds long.");
-        URL.revokeObjectURL(objectURL);
-      } else {
-        // Create a download link instead of automatically downloading
-        const downloadLink = document.createElement('a');
-        downloadLink.href = objectURL;
-        downloadLink.download = file.name;
-        downloadLink.textContent = 'Download Audio';
-        document.body.appendChild(downloadLink);
-      }
-    });
-
-    audio.src = objectURL;
-  } else {
-    alert("Please upload a file in MP3 or WAV format.");
-    input.value = "";
   }
 });

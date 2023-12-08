@@ -1,34 +1,42 @@
-{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
     <link rel="stylesheet" href="static/css/homepage.css">
 
-    <div id="audio-player-container"  class="h_container">
-        <div class="center">
-            <h1>Music Genre Recognition</h1><br>
-        </div>
-        <div class="center">
-            <p>Discover the genres of unknown songs with ease. App powered by deep learning and built with Flask. Enjoy learning about new music genres effortlessly!</p><br>
-        </div>
-        <div class="center how-to">
-            <p>How to Use the Music Genre Recognition App?</p>
-            <ol>
-                <li>Load the song whose genre you want to recognize.</li>
-                <li>Ensure the file is in WAV or MP3 format and is at least 30 seconds long to get an accurate prediction.</li>
-                <li>Click the 'Recognize' button.</li>
-            </ol>
-        </div>
-        <div class="center">
-            <form action="/prediction" method="post" enctype="multipart/form-data">
-                <label for="audio-upload">Select a file:</label>
-                <input type="file" id="file" name="file" required="required" accept=".wav,.mp3">
-                <a id="link" download style="display: none">There is nothing to see</a><br><br>
-                <ul id="myList">
-                </ul>
-                <br><br>
-                <button type="submit" class="button" formtarget="_self"><span>Recognize</span></button>
-            </form>
-        </div>
-    </div>
+</head>
+<body>
 
-    <script type="text/javascript" src="{{ url_for('static', filename='js/upload_audio.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='js/display_audio.js') }}"></script>
-{% endblock %}
+{#{% include 'navbar.html' %}#}
+<div id="audio-player-container" class="h_container">
+    <div class="center">
+        <h1>Music Genre Recognition</h1><br>
+    </div>
+    <div class="center">
+        <p>Discover the genres of unknown songs with ease. App powered by deep learning and built with Flask. Enjoy learning about new music genres effortlessly!</p><br>
+    </div>
+    <div class="center how-to">
+        <p>How to Use the Music Genre Recognition App?</p>
+        <ol>
+            <li>Load the song whose genre you want to recognize.</li>
+            <li>Ensure the file is in WAV or MP3 format and is at least 30 seconds long to get an accurate prediction.</li>
+            <li>Click the 'Recognize' button.</li>
+        </ol>
+    </div>
+    <div class="center">
+        <form action="/prediction" method="post" enctype="multipart/form-data">
+            <label for="audio-upload">Select a file:</label>
+            <input type="file" id="file" name="file" required="required" accept="audio/*">
+            <a id="link" download style="display: none"></a><br><br>
+            <ul id="myList">
+            </ul>
+            <br><br>
+            <button type="submit" class="button" formtarget="_self"><span>Recognize</span></button>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript" src="{{ url_for('static', filename='js/upload_audio.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/display_audio.js') }}"></script>
+</body>
+</html>
