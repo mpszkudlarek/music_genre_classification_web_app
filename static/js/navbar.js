@@ -1,4 +1,4 @@
-var open = document.getElementById('hamburger');
+var open = document.getElementById('navbar');
 var changeIcon = true;
 
 open.addEventListener("click", function(){

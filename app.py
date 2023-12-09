@@ -3,7 +3,7 @@ import uuid
 import numpy as np
 import shutil
 from support_functions import split_audio, predict
-from flask import Flask, render_template, request, redirect, after_this_request
+from flask import Flask, render_template, request, redirect
 import weakref
 
 app = Flask(__name__)
@@ -63,13 +63,13 @@ def prediction():
 
             top_genres = np.argsort(average_probabilities)[::-1][:3]
             predicted_genres = [{"genre": genre_labels.get(index, "Unknown"), "probability": average_probabilities[index]} for index in top_genres]
-            
+
             print('temp_folder', temp_folder)
             if os.path.exists(temp_folder):
                 shutil.rmtree(temp_folder)
         else:
             print("Temp folder does not exist.")
-            
+
     return render_template('prediction.html', predicted_genres=predicted_genres)
 
 
@@ -81,6 +81,11 @@ def homepage():
 @app.route("/about")
 def about():
     return render_template('about.html')
+
+
+@app.route("/privacy_policy")
+def privacy_policy():
+    return render_template('privacy_policy.html')
 
 
 if __name__ == '__main__':

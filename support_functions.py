@@ -1,9 +1,7 @@
 import os
-import sys
 import subprocess
 from pydub import AudioSegment
 import sys
-import uuid
 import keras
 import numpy as np
 import librosa
@@ -27,8 +25,6 @@ def check_extension(audio_path):
 
 
 def split_audio(audio_path, temp_folder, segment_duration=30):
-    # No need to create a new temp folder here; use the one passed as an argument
-
     wav_path = check_extension(audio_path)
     audio = AudioSegment.from_wav(wav_path)
     duration_ms = len(audio)
@@ -43,7 +39,7 @@ def split_audio(audio_path, temp_folder, segment_duration=30):
         part.export(part_file, format='wav')
         audio_parts.append(part_file)
 
-    return audio_parts  # No need to return temp_folder since it's passed in
+    return audio_parts
 
 
 def extract_features(audio_file, sr=22050, duration=30, mfccs=13, fft=2048, hop=512, num_segments=10):

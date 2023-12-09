@@ -15,7 +15,7 @@
                     <div class="card">
                         <div class="card-content">
                             <h3 class="genre-name">{{ genre.genre }}</h3>
-                            <p class="probability">Probability: {{ genre.probability | round(2) }}%</p>
+                            <p class="probability">Probability: {{ genre.probability | round(2) * 100 }}%</p>
                         </div>
                     </div>
                 {% endfor %}
