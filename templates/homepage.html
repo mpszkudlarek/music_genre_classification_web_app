@@ -1,14 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
     <link rel="stylesheet" href="static/css/homepage.css">
+    <link rel="stylesheet" href="static/css/base.css">
 
 </head>
+<header>
+    <div class="menu-toggle" id="navbar">
+        <i class="fas fa-bars"></i>
+    </div>
+    <div class="container">
+        <nav>
+            <h1 class="brand"><a href="{{ url_for('homepage') }}">Music<span> Genre</span> Classifier</a></h1>
+            <ul>
+                <li><a href="{{ url_for('homepage') }}">Home</a></li>
+                <li><a href="{{ url_for('about') }}">About</a></li>
+                <li><a href="{{ url_for('privacy_policy') }}">Privacy policy</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+
 <body>
 
-{#{% include 'navbar.html' %}#}
-<div id="audio-player-container" class="h_container">
+
+<div class="h_container">
     <div class="center">
         <h1>Music Genre Recognition</h1><br>
     </div>
@@ -23,6 +40,7 @@
             <li>Click the 'Recognize' button.</li>
         </ol>
     </div>
+    <br>
     <div class="center">
         <form action="/prediction" method="post" enctype="multipart/form-data">
             <label for="audio-upload">Select a file:</label>
@@ -36,7 +54,13 @@
     </div>
 </div>
 
-<script type="text/javascript" src="{{ url_for('static', filename='js/upload_audio.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='js/display_audio.js') }}"></script>
+<script type="text/javascript"
+        src="{{ url_for('static', filename='js/upload_audio.js') }}"></script>
+<script type="text/javascript"
+        src="{{ url_for('static', filename='js/display_audio.js') }}"></script>
+<script type="text/javascript"
+        src="{{ url_for('static', filename='js/navbar.js') }}"></script>
+
 </body>
 </html>
+

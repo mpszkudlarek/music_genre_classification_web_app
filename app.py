@@ -4,29 +4,10 @@ import numpy as np
 import shutil
 from support_functions import split_audio, predict
 from flask import Flask, render_template, request, redirect
-import weakref
 
 app = Flask(__name__)
 
 genre_labels = {0: 'blues', 1: 'classical', 2: 'country', 3: 'disco', 4: 'hiphop', 5: 'jazz', 6: 'metal', 7: 'pop', 8: 'reggae', 9: 'rock'}
-
-
-class FileRemover(object):
-    def __init__(self):
-        self.weak_references = dict()  # weak_ref -> filepath to remove
-
-    def cleanup_once_done(self, response, filepath):
-        wr = weakref.ref(response, self._do_cleanup)
-        self.weak_references[wr] = filepath
-
-    def _do_cleanup(self, wr):
-        filepath = self.weak_references.pop(wr, None)
-        if filepath and os.path.exists(filepath):
-            print(f'Deleting {filepath}')
-            shutil.rmtree(filepath, ignore_errors=True)
-
-
-file_remover = FileRemover()
 
 
 @app.route('/prediction', methods=['GET', 'POST'])
@@ -69,7 +50,7 @@ def prediction():
                 shutil.rmtree(temp_folder)
         else:
             print("Temp folder does not exist.")
-
+    # TODO : make it return json instead of html
     return render_template('prediction.html', predicted_genres=predicted_genres)
 
 

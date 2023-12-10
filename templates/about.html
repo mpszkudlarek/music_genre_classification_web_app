@@ -1,12 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <link rel="stylesheet" href="static/css/base.css">
     <link rel="stylesheet" href="static/css/about.css">
-    <title>About Project</title>
 </head>
-
-{% extends 'navbar.html' %}
+<header>
+    <div class="menu-toggle" id="navbar">
+        <i class="fas fa-bars"></i>
+    </div>
+    <div class="container">
+        <nav>
+            <h1 class="brand"><a href="{{ url_for('homepage') }}">Music<span> Genre</span> Classifier</a></h1>
+            <ul>
+                <li><a href="{{ url_for('homepage') }}">Home</a></li>
+                <li><a href="{{ url_for('about') }}">About</a></li>
+                <li><a href="{{ url_for('privacy_policy') }}">Privacy policy</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
 
 <body>
 <div class="p_container">
@@ -16,7 +28,7 @@
         <article class="column">
             <div class="card">
                 <h2>Deep Learning Explorations</h2>
-                <img src="static/img/MIT-Neural-Networks-SL.gif" alt="Visualization of a neural network" style="width:200px; height:200px;">
+                <img src="static/img/MIT-Neural-Networks-SL.gif" alt="Visualization of a neural network" style="width:200px; height:200px;border-radius: 100px">
                 <p>In the deep learning section, the main focus was:</p>
                 <ul>
                     <li><strong>Preprocessing:</strong> With the Librosa library, extracting features like MFCCs, Chroma, and RMS to set the stage for sophisticated analysis.</li>
@@ -30,11 +42,11 @@
         <article class="column">
             <div class="card">
                 <h2>Web Programming </h2>
-                <img src="static/img/flask-logo-png-transparent.png" alt="Flask Framework Logo" style="width:200px; height:200px;">
+                <img src="static/img/1.png" alt="Flask Framework Logo" style="width:200px; height:200px;border-radius: 100px">
                 <p>Flask is minimalist framework in Python that empowers to weave together the threads of web development and machine learning. In this project, Flask serves as the
                     backbone for the deep learning models to life on the web.</p>
                 <ul>
-                    <li><strong>Deployment:</strong> Combining Flask with deep learning model allowed to craft the music genre recognition on the home page</li>
+                    <li><strong>Deployment:</strong> Combining Flask with deep learning model allowed to craft the music genre recognition on the home page.</li>
                 </ul>
 
             </div>
@@ -43,16 +55,15 @@
             <div class="card">
                 <h2>GitHub Integration</h2>
                 <a href="https://github.com/mszkudla" target="_blank">
-                    <img src="static/img/github-mark.svg" alt="Github Logo" style="width:200px; height:200px;">
+                    <img src="static/img/github-mark-white.svg" alt="Github Logo" style="width:200px; height:200px">
                 </a>
                 <p>GitHub is a version control and collaborative development of this project. It hosts the source code and provides tools for code management.</p>
                 <ul>
                     <li><strong>Version Control:</strong> GitHub is used to track changes, manage branches, and maintain the history of the project's development.</li>
-                    <li><strong>Repository:</strong> check out the project repository on <a href="https://github.com/mszkudla" target="_blank">my GitHub profile</a>.</li>
+                    <li><strong>Repository:</strong> check out the project repository on my <a href="https://github.com/mszkudla/genre_classification_web_app_inzynierka" target="_blank"> GitHub</a> profile.</li>
                 </ul>
             </div>
         </article>
     </section>
 </div>
->
 </body>

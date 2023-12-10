@@ -1,56 +1,43 @@
-body {
-    background-image: url('/static/img/wp9684415.webp');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    font-family: 'Roboto', sans-serif;
-    color: #333;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-
+@import url(base.css);
 .p_container {
-    width: 80%;
-    margin: auto;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.5);
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+    width: 90%;
+    margin-top: 80px;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(5px);
     border-radius: 25px;
-    height: calc(100vh - 50px); /* Subtract navbar.html height from total view height */
-    overflow: auto; /* Allows scrolling within the container if content overflows */
+    box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.5);
 }
 
 h1.project-title {
     text-align: center;
-    font-size: 4em;
+    font-size: 3em;
     font-weight: bold;
+    margin-bottom: 0.5em;
+    color: var(--white);
 }
 
 .row {
     display: flex;
-    flex-wrap: nowrap; /* Prevent wrapping */
+    flex-wrap: nowrap; 
     justify-content: space-around;
-    align-items: flex-start; /* Align items vertically */
-    gap: 20px; /* Adds space between the cards */
+    align-items: flex-start;
+    gap: 20px;
 }
 
 .column {
-    flex: 1; /* Each column will take up equal space */
-    margin-bottom: 20px; /* Maintain bottom margin if needed */
+    flex: 1; 
+    margin-bottom: 20px; 
 }
 
 .card {
+    color: var(--white);
     text-align: center;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
-    padding: 32px;
-    background-color: rgba(255, 255, 255, 0.5);
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.5);
     border-radius: 25px;
-    margin: 0 10px; /* Add horizontal margin if needed */
+    margin: 0 10px; 
 }
 
 .card h3 {
@@ -60,34 +47,20 @@ h1.project-title {
 }
 
 .card p, .card ul li {
-    
+
     font-size: 18px;
     line-height: 1.6;
     list-style-position: inside;
 }
 
-.card ul{
+.card ul {
     text-align: left;
 }
+
 .card img {
     width: 100%;
     height: auto;
-    max-width: 100%; /* Make sure the image is responsive and does not overflow */
+    max-width: 100%; 
     margin: auto;
 }
 
-@media screen and (max-width: 1200px) { /* Adjust this breakpoint as needed */
-    .row {
-        flex-wrap: wrap; /* Allow wrapping on smaller screens */
-    }
-    .column {
-        flex: 0 0 100%; /* Full width columns on smaller screens */
-        margin-bottom: 20px;
-    }
-    .card img {
-        max-width: 600px; /* Adjust the max-width for smaller screens */
-    }
-    .p_container {
-        height: calc(100vh - 60px); /* Adjust this value based on actual navbar.html height on smaller screens */
-    }
-}

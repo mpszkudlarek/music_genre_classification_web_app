@@ -1,10 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="static/css/about.css">
-    <title>About Project</title>
+    <link rel="stylesheet" href="static/css/privacy_policy.css">
+    <link rel="stylesheet" href="static/css/base.css">
 </head>
+
+<header>
+    <div class="menu-toggle" id="navbar">
+        <i class="fas fa-bars"></i>
+    </div>
+    <div class="container">
+        <nav>
+            <h1 class="brand"><a href="{{ url_for('homepage') }}">Music<span> Genre</span> Classifier</a></h1>
+            <ul>
+                <li><a href="{{ url_for('homepage') }}">Home</a></li>
+                <li><a href="{{ url_for('about') }}">About</a></li>
+                <li><a href="{{ url_for('privacy_policy') }}">Privacy policy</a></li>
+            </ul>
+        </nav>
+    </div>
+    <link rel="stylesheet" href="static/css/base.css">
+    <link rel="stylesheet" href="static/css/privacy_policy.css">
+</header>
+
 <body>
 
 <div class="p_container">
@@ -13,15 +31,20 @@
     <section class="row">
         <article class="column">
             <div class="card">
-                <p>Welcome to my music genre recognition web application, a project developed as part of my diploma at Politechnika Wrocławska. This website was created solely for
+                <p>Welcome to my music genre recognition web application, a project developed as part of my diploma at Politechnika Wrocławska. This website was created solely
+                    for
                     academic and learning purposes, with no intention of commercialization or financial gain.</p>
-                <p>Your privacy is of utmost importance to me. This policy outlines how I handle the information collected during your visit to ensure your data is respected and
+                <p>Your privacy is of utmost importance to me. This policy outlines how I handle the information collected during your visit to ensure your data is respected
+                    and
                     protected.</p>
-                <p>While using this website, certain information like your IP address and browser type may be collected to analyze site usage and enhance user experience. This data
+                <p>While using this website, certain information like your IP address and browser type may be collected to analyze site usage and enhance user experience. This
+                    data
                     is purely for analytical purposes and not for any commercial use.</p>
-                <p>In case you choose to register, we collect additional details such as your name and email address. These are used exclusively to offer you enhanced functionality
+                <p>In case you choose to register, we collect additional details such as your name and email address. These are used exclusively to offer you enhanced
+                    functionality
                     of the website and will never be shared with third parties.</p>
-                <p>To safeguard your data, I employ standard security measures like encryption and password protection. However, it's important to remember that no method of online
+                <p>To safeguard your data, I employ standard security measures like encryption and password protection. However, it's important to remember that no method of
+                    online
                     transmission or electronic storage is entirely secure.</p>
                 <p>If you have any queries or concerns about how I protect your privacy, please feel free to reach out. Your privacy is my priority, and I am dedicated to
                     addressing any issues you might have.</p>
@@ -31,6 +54,6 @@
         </article>
     </section>
 </div>
-
 </body>
+
 </html>
