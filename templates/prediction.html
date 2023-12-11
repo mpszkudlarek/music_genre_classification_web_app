@@ -33,9 +33,9 @@
                 <div class="card">
                     <div class="card-content">
                         <ul>
-                            <li><h3 class="genre-name">{{genre.genre}}</h3></li>
+                            <li><h3 class="genre-name">{{ genre.genre }}</h3></li>
                         </ul>
-                        <p class="probability">with probability of : {{ genre.probability | round(3) * 100 }}%</p>
+                        <p class="probability">with probability of : {{ (genre.probability * 100) | round(2) }}%</p>
                     </div>
                 </div>
             {% endfor %}

@@ -2,7 +2,7 @@ import os
 import uuid
 import numpy as np
 import shutil
-from support_functions import split_audio, predict
+from support_functions import split_audio, predict, get_gpu_info
 from flask import Flask, render_template, request, redirect
 
 app = Flask(__name__)
@@ -34,12 +34,16 @@ def prediction():
             audio_file_path = os.path.join(temp_folder, file.filename)
             file.save(audio_file_path)
 
+            print("GPU usage before prediction")
+            print(get_gpu_info())
             audio_parts = split_audio(audio_file_path, temp_folder)
             genre_probabilities = np.zeros(len(genre_labels))
 
             for part in audio_parts:
                 genre_probabilities += predict(part)
 
+            print("GPU usage after prediction")
+            print(get_gpu_info())
             average_probabilities = genre_probabilities / len(audio_parts)
 
             top_genres = np.argsort(average_probabilities)[::-1][:3]
