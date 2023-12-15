@@ -1,13 +1,24 @@
 import os
 import subprocess
+import librosa
+from matplotlib import pyplot as plt
 from pydub import AudioSegment
-import sys
 import keras
 import numpy as np
-import librosa
-import magic
+import uuid
+import shutil
+import sys
 
+genre_labels = {0: 'blues', 1: 'classical', 2: 'country', 3: 'disco', 4: 'hiphop', 5: 'jazz', 6: 'metal', 7: 'pop', 8: 'reggae', 9: 'rock'}
+output_directory = 'charts_genres'
+chart_filename = 'test.png'
+output_filename = 'Kendrick Lamar - Money Trees.txt'
+correct_genre_index = 4
 model = keras.models.load_model('git_modelv3.h5')
+
+audio_file_path = 'track_to_test/Kendrick Lamar - Money Trees.mp3'
+segment_duration = 30
+overlap = 15
 
 
 def check_extension(audio_path):
@@ -25,7 +36,11 @@ def check_extension(audio_path):
     return audio_path
 
 
-def split_audio(audio_path, temp_folder, segment_duration=30, overlap=15):
+def split_audio(audio_path, segment_duration=30, overlap=15):
+    temp_id = str(uuid.uuid4())
+    temp_folder = os.path.join('tmp_directory', temp_id)
+    os.makedirs(temp_folder, exist_ok=True)
+
     wav_path = check_extension(audio_path)
     audio = AudioSegment.from_wav(wav_path)
     duration_ms = len(audio)
@@ -42,7 +57,7 @@ def split_audio(audio_path, temp_folder, segment_duration=30, overlap=15):
         part.export(part_file, format='wav')
         audio_parts.append(part_file)
 
-    return audio_parts
+    return audio_parts, temp_folder
 
 
 def extract_features(audio_file, sr=22050, duration=30, mfccs=13, fft=2048, hop=512, num_segments=10):
@@ -64,32 +79,40 @@ def extract_features(audio_file, sr=22050, duration=30, mfccs=13, fft=2048, hop=
 def predict(audio_file):
     features = extract_features(audio_file)
     prediction_input = features[np.newaxis, ..., np.newaxis]
-    print("before prediction")
-    print(get_gpu_info())
     probabilities = model.predict(prediction_input)
-    print(get_gpu_info())
-    print("after prediction")
     return probabilities[0]
 
 
-def get_gpu_info():
-    try:
-        result = subprocess.run(['nvidia-smi'], capture_output=True, text=True)
-        return result.stdout
-    except FileNotFoundError:
-        return "nvidia-smi not found"
-    except Exception as e:
-        return f"An error occurred: {str(e)}"
+audio_parts, temp_directory = split_audio(audio_file_path, segment_duration, overlap)
 
+genre_probabilities_list = []
 
-def check_file_signature(file_path):
-    signature = magic.Magic(mime=True)
+for i, part in enumerate(audio_parts):
+    genre_probabilities = predict(part)
+    genre_probabilities_list.append(genre_probabilities[correct_genre_index])
 
-    signature_type = signature.from_file(file_path)
+    print(f"Segment {i + 1} Prediction:")
+    genre = genre_labels.get(correct_genre_index, "Unknown")
+    probability = genre_probabilities[correct_genre_index]
+    print(f'{genre}: {probability:.8f}')
+    print()
 
-    if signature_type == 'audio/mpeg':
-        return True
-    elif signature_type == 'audio/x-wav':
-        return True
-    else:
-        sys.exit(1)
+segment_numbers = list(range(1, len(audio_parts) + 1))
+
+os.makedirs(output_directory, exist_ok=True)
+chart_filename = os.path.join(output_directory, chart_filename)
+plt.savefig(chart_filename)
+
+output_text = []
+for i, probability in enumerate(genre_probabilities_list):
+    output_text.append(f"Segment {i + 1} Prediction:")
+    genre = genre_labels.get(correct_genre_index, "Unknown")
+    output_text.append(f'{genre}: {probability}')
+    output_text.append("\n")
+
+output_filename = os.path.join(output_directory, output_filename)
+with open(output_filename, 'w') as text_file:
+    text_file.write('\n'.join(output_text))
+
+if os.path.exists(temp_directory):
+    shutil.rmtree(temp_directory)
