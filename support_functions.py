@@ -1,5 +1,7 @@
 import os
 import subprocess
+
+import psutil
 from pydub import AudioSegment
 import sys
 import keras
@@ -64,11 +66,7 @@ def extract_features(audio_file, sr=22050, duration=30, mfccs=13, fft=2048, hop=
 def predict(audio_file):
     features = extract_features(audio_file)
     prediction_input = features[np.newaxis, ..., np.newaxis]
-    print("before prediction")
-    print(get_gpu_info())
     probabilities = model.predict(prediction_input)
-    print(get_gpu_info())
-    print("after prediction")
     return probabilities[0]
 
 
@@ -93,3 +91,13 @@ def check_file_signature(file_path):
         return True
     else:
         sys.exit(1)
+
+
+def get_system_performance():
+    cpu_usage_percent = psutil.cpu_percent(interval=1)
+    ram_usage = psutil.virtual_memory()
+    ram_usage_percent = ram_usage.percent
+    disk_usage = psutil.disk_usage('/')
+    disk_usage_percent = disk_usage.percent
+
+    return cpu_usage_percent, ram_usage_percent, disk_usage_percent

@@ -3,7 +3,7 @@ import uuid
 import numpy as np
 import shutil
 from werkzeug.utils import secure_filename
-from support_functions import split_audio, predict, check_file_signature
+from support_functions import split_audio, predict, check_file_signature, get_gpu_info, get_system_performance
 from flask import Flask, render_template, request, jsonify
 
 app = Flask(__name__)
@@ -29,7 +29,12 @@ def prediction():
 
         if file:
             print("File received")
-    
+            print("before prediction")
+            print(get_gpu_info())
+            cpu_before, ram_before, disk_usage_before = get_system_performance()
+            print(f"CPU usage before prediction: {cpu_before}%")
+            print(f"RAM usage before prediction: {ram_before}%")
+            print(f"Disk usage before prediction: {disk_usage_before}%")
             temp_id = str(uuid.uuid4())
             print(f"Temp id: {temp_id}")
             temp_folder = os.path.join('tmp_directory', temp_id)
@@ -48,6 +53,12 @@ def prediction():
             top_genres = np.argsort(average_probabilities)[::-1][:3]
             predicted_genres = [{"genre": genre_labels.get(index, "Unknown"), "probability": average_probabilities[index]} for index in top_genres]
 
+            print(get_gpu_info())
+            print("after prediction")
+            cpu_after, ram_after, disk_usage_after = get_system_performance()
+            print(f"CPU usage after prediction: {cpu_after}%")
+            print(f"RAM usage after prediction: {ram_after}%")
+            print(f"Disk usage after prediction: {disk_usage_after}%")
             print('temp_folder', temp_folder)
             if os.path.exists(temp_folder):
                 shutil.rmtree(temp_folder)
