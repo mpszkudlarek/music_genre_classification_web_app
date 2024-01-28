@@ -1,4 +1,4 @@
-# Music Genre Recognition Web Application
+# Music Genre Classification Web Application
 
 ## Overview
 This project, developed as my engineering thesis at Politechnika Wrocławska, introduces a web application for music genre recognition using convolutional neural networks (CNNs).
